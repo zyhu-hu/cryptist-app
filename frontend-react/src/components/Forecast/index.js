@@ -32,6 +32,14 @@ const Forecast = (props) => {
     const [symbol, setSymbol] = useState("");
     const [prediction, setPrediction] = useState(null);
 
+    const data = require("./usd_vs_euro.json");
+    const points = data.widget[0].data.reverse();
+    const series = new TimeSeries({
+        name: "USD_vs_EURO",
+        columns: ["time", "value"],
+        points
+    });
+    
     // Setup Component
     useEffect(() => {
 
