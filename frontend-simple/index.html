@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cryptist</title>
+</head>
+
+<body>
+    Welcome to the Cryptist App!
+
+    <label for="symbol">Choose a symbol:</label>
+    
+    <select id="symbol" onchange=symbol_change()> 
+        <option value="">-Select-</option>
+        <option value="ETH">Etherium</option>
+        <option value="BTC">Bitcoin</option>
+    </select>
+</body>
+
+<script>
+    var symbol = document.getElementById("symbol");
+    function symbol_change() {
+        console.log(symbol.value);
+        if(symbol.value != ""){
+            console.log(symbol.value);
+
+        }
+    }
+</script>
+</html>
