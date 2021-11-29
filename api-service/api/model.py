@@ -73,13 +73,12 @@ def make_prediction_withtime(instrument_id):
     ts_predict = np.around(ts_predict, decimals=4)
     ts_predict_time = np.array(
         (1414368000000, 1414972800000, 1415577600000, 1416182400000,1416787200000))
-    #ts_predict_list = []
-    #for i in range(ts_predict.shape[0]):
-    #    ts_predict_list.append([ts_predict_time[i],ts_predict[i]])
+    ts_predict_list = []
+    for i in range(ts_predict.shape[0]):
+        ts_predict_list.append([ts_predict_time.tolist()[i], ts_predict.tolist()[i]])
     return {
         "asset": instrument_id,
         "number of predicting time steps": str(5),
         #"prediction": ts_predict_list
-        "prediction": ts_predict.tolist(),
-        "time": ts_predict_time.tolist()
+        "prediction": ts_predict_list
     }
