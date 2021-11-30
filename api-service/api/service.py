@@ -1,7 +1,12 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from api.tracker import TrackerService
+import asyncio
 from enum import Enum
 from api import model
+
+# Initialize Tracker Service
+tracker_service = TrackerService()
 
 class InstrumentIDs(str, Enum):
     btc_binance_usdt = "BINANCE:BTC_USDT.SWAP"
@@ -27,6 +32,11 @@ app.add_middleware(
 )
 
 # Routes
+@app.on_event("startup")
+async def startup():
+    # Startup tasks
+    # Start the tracker service
+    asyncio.create_task(tracker_service.track())
 
 
 @app.get("/")
