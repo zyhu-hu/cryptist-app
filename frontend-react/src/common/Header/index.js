@@ -88,6 +88,12 @@ const Header = (props) => {
                                 <ListItemText primary='Forecast' />
                             </ListItem>
                         </List>
+                        <List>
+                            <ListItem button key='menuitem12' component={Link} to="/agent">
+                                <ListItemIcon><Icon>agent</Icon></ListItemIcon>
+                                <ListItemText primary='Agent' />
+                            </ListItem>
+                        </List>
                     </div>
                 </div>
             </Drawer>

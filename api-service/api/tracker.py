@@ -75,7 +75,7 @@ class TrackerService:
             print("Tracking experiments...")
 
             # Download new model metrics
-            timestamp = download_data()
+            #timestamp = download_data()
 
             #if timestamp > self.timestamp:
                 # Aggregate all experiments across users
@@ -86,3 +86,14 @@ class TrackerService:
 
                 # Download best model
                 # download_best_models(
+
+class TimeTracker:
+    def __init__(self):
+        self.timeindex = 0
+    
+    async def track(self):
+        while True:
+            await asyncio.sleep(1)
+            self.timeindex = self.timeindex + 10
+            if self.timeindex>3000:
+                self.timeindex = 0

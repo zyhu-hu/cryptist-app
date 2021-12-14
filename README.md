@@ -22,4 +22,4 @@ The api-service module is used to: 1) download prediction model and deep reinfor
 
 The deployment model is used to set up the app on GCP and K8s clusters.
 
-We also have a model-training module to train the prediction model and the DRL trading agent model. This module has been developing separately for now and will be included in the repo.
+We also have a model-training module to train the time series prediction model and the DRL trading agent model. This module has been developing separately for now and will be included in the repo.

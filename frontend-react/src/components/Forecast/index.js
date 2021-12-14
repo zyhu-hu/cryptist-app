@@ -30,7 +30,7 @@ const Forecast = (props) => {
     var seriestmp = new TimeSeries({
         name: "BTC",
         columns: ["time", "value"],
-        points: [[1400000000, 1400], [1400000000, 1400], [1400000000, 1400], [1400000000, 1400], [1400000000, 1400]]
+        points: [[1400000000, 1423], [1400000000, 1400], [1400000000, 1390], [1400000000, 1400], [1400000000, 1500]]
         });
 
     // Component States
@@ -38,6 +38,8 @@ const Forecast = (props) => {
     const [prediction, setPrediction] = useState(null);
     // const [points, setPoint] = useState(null);
     const [series, setSeries] = useState(seriestmp);
+    const [intervalId, setIntervalId] = useState(0);
+
 
     // Setup Component
     useEffect(() => {
@@ -48,23 +50,33 @@ const Forecast = (props) => {
     const handleChangeSymbol = (event) => {
         setSymbol(event.target.value);
         console.log(event.target.value);
-        if (event.target.value !== "") {
-            DataService.Predict(event.target.value)
-                .then(function (response) {
-                    console.log(response.data);
-                    setPrediction(response.data);
-                    var pointstmp = response.data.prediction
-
-                    var series0 = new TimeSeries({
-                        name: "USD_vs_EURO",
-                        columns: ["time", "value"],
-                        points: pointstmp
-                        // points: [[1400000000, 1400], [1400000000, 1400], [1400000000, 1400], [1400000000, 1400], [1400000000, 1400]]
-                    });
-                    setSeries(series0);
-                });
+        if (intervalId) {
+            clearInterval(intervalId);
+            setIntervalId(0);
+            // return;
         }
+        var rate = 1000
+        const newIntervalId = setInterval(() => {
+            if (event.target.value !== "") {
+                DataService.Predict(event.target.value)
+                    .then(function (response) {
+                        console.log(response.data);
+                        setPrediction(response.data);
+                        var pointstmp = response.data.prediction
+
+                        var series0 = new TimeSeries({
+                            name: "USD_vs_EURO",
+                            columns: ["time", "value"],
+                            points: pointstmp
+                            // points: [[1400000000, 1400], [1400000000, 1400], [1400000000, 1400], [1400000000, 1400], [1400000000, 1400]]
+                        });
+                        setSeries(series0);
+                    });
+            }
+        }, rate);
+        setIntervalId(newIntervalId);
     }
+
 
    // var series = new TimeSeries({
    //     name: "USD_vs_EURO",
@@ -139,28 +151,23 @@ const Forecast = (props) => {
                     <br />
                     {prediction &&
                         <div>
-                            <Typography gutterBottom align='center'>
-                                {prediction.asset}
-                            </Typography>
-                            <Typography gutterBottom align='center'>
-                                {"price for next 5 time steps: " + prediction.prediction[0] + ", " + prediction.prediction[1] + ", " + prediction.prediction[2] + ", " + prediction.prediction[3] + ", " + prediction.prediction[4]}
-                            </Typography>
                             <Resizable>
                                 <ChartContainer
-                                    title="BTC price (USD)"
+                                    title={prediction.asset}
                                     titleStyle={{ fill: "#555", fontWeight: 500 }}
                                     timeRange={series.range()}
-                                    format="%b '%y"
-                                    timeAxisTickCount={5}
+                                    //format="%b '%y"
+                                    timeAxisTickCount={10}
                                 >
-                                    <ChartRow height="150">
+                                    <ChartRow height="300">
                                         <YAxis
                                             id="price"
-                                            label="Price ($)"
+                                            //label="Price ($)"
                                             min={series.min()}
                                             max={series.max()}
-                                            width="60"
+                                            width="120"
                                             format="$,.2f"
+                                            //labelOffset="-30"
                                         />
                                         <Charts>
                                             <LineChart axis="price" series={series} style={style} />

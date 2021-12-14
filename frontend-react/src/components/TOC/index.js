@@ -45,6 +45,12 @@ const TOC = (props) => {
                         <ListItemText primary='Forecast' />
                     </ListItem>
                 </List>
+                <List>
+                    <ListItem button component={Link} to="/agent">
+                        <ListItemIcon><Icon>check_box_outline_blank</Icon></ListItemIcon>
+                        <ListItemText primary='Agent' />
+                    </ListItem>
+                </List>
             </main>
         </div>
     );

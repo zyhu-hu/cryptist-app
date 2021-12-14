@@ -3,7 +3,7 @@ from google.cloud import storage
 
 
 gcp_project = os.environ["GCP_PROJECT"]
-bucket_name = "cryptist-data"
+bucket_name = "cryptist-bucket"
 persistent_folder = "/persistent"
 
 
