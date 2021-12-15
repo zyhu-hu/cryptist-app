@@ -66,10 +66,53 @@
         path: "/mnt/disk-1/persistent/experiments"
         state: "directory"
         mode: 0777
+
+    - name: Create persistent-experiments directory
+      file:
+        path: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask"
+        state: "directory"
+        mode: 0777
+    - name: Create persistent-experiments directory
+      file:
+        path: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask/assets"
+        state: "directory"
+        mode: 0777
+
+    - name: Create persistent-experiments directory
+      file:
+        path: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask/variables"
+        state: "directory"
+        mode: 0777
+    
     - name: Copy time series data file
       copy:
-        src: ../persistent-folder/experiments/ffnn_data_array_bid_price1.npy
-        dest: "/mnt/disk-1/persistent/experiments/ffnn_data_array_bid_price1.npy"
+        src: ../persistent-folder/experiments/view_instrument_37_bid_and_ask/keras_metadata.pb
+        dest: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask/keras_metadata.pb"
+        mode: 0644
+    
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/view_instrument_37_bid_and_ask/saved_model.pb
+        dest: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask/saved_model.pb"
+        mode: 0644
+
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/view_instrument_37_bid_and_ask/variables/variables.data-00000-of-00001
+        dest: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask/variables/variables.data-00000-of-00001"
+        mode: 0644
+    
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/view_instrument_37_bid_and_ask/variables/variables.index
+        dest: "/mnt/disk-1/persistent/experiments/view_instrument_37_bid_and_ask/variables/variables.index"
+        mode: 0644
+
+
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/data_array_cryptist.npy
+        dest: "/mnt/disk-1/persistent/experiments/data_array_cryptist.npy"
         mode: 0644
     - name: Copy time series data file
       copy:
@@ -83,15 +126,39 @@
         mode: 0644
     - name: Copy time series data file
       copy:
-        src: ../persistent-folder/experiments/ffnn_model.h5
-        dest: "/mnt/disk-1/persistent/experiments/ffnn_model.h5"
+        src: ../persistent-folder/experiments/detrend_data_cryptist.npy
+        dest: "/mnt/disk-1/persistent/experiments/detrend_data_cryptist.npy"
         mode: 0644
     - name: Copy time series data file
       copy:
-        src: ../persistent-folder/experiments/ffnn_x_test_5steps.npy
-        dest: "/mnt/disk-1/persistent/experiments/ffnn_x_test_5steps.npy"
+        src: ../persistent-folder/experiments/max.csv
+        dest: "/mnt/disk-1/persistent/experiments/max.csv"
         mode: 0644
-    
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/min.csv
+        dest: "/mnt/disk-1/persistent/experiments/min.csv"
+        mode: 0644
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/q_model_eth.h5
+        dest: "/mnt/disk-1/persistent/experiments/q_model_eth.h5"
+        mode: 0644
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/q_model.h5
+        dest: "/mnt/disk-1/persistent/experiments/q_model.h5"
+        mode: 0644
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/timestamp_cryptist.npy
+        dest: "/mnt/disk-1/persistent/experiments/timestamp_cryptist.npy"
+        mode: 0644
+    - name: Copy time series data file
+      copy:
+        src: ../persistent-folder/experiments/undetrended_data_cryptist.npy
+        dest: "/mnt/disk-1/persistent/experiments/undetrended_data_cryptist.npy"
+        mode: 0644
 
     - name: Create api-service container
       docker_container:

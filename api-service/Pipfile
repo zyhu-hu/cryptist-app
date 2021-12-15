@@ -14,6 +14,7 @@ tensorflow = "*"
 pandas = "*"
 google-auth = "*"
 google-cloud-storage = "*"
+gym = "*"
 
 [requires]
 python_version = "3.8"
