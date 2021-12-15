@@ -164,19 +164,19 @@ We have already done this in the deployment tutorial but in case you have not do
 
 ## Deploy to Kubernetes Cluster
 
-### Create Cluster
+#### Create Cluster
 ```
 gcloud container clusters create test-cluster --num-nodes 2 --zone us-east1-c
 ```
 
-### Checkout the cluster in GCP
+#### Checkout the cluster in GCP
 * Go to the Kubernetes Engine menu item to see the cluster details
     - Click on the cluster name to see the cluster details
     - Click on the Nodes tab to view the nodes
     - Click on any node to see the pods running in the node
 * Go to the Compute Engine menu item to see the VMs in the cluster
 
-### Try some kubectl commands
+#### Try some kubectl commands
 ```
 kubectl get all
 kubectl get all --all-namespaces
@@ -187,22 +187,22 @@ kubectl get pods --all-namespaces
 kubectl get componentstatuses
 kubectl get nodes
 ```
-### Deploy the App
+#### Deploy the App
 ```
 kubectl apply -f deploy-k8s-tic-tac-toe.yml
 ```
 
-### Build and Push Docker Containers to GCR
+#### Build and Push Docker Containers to GCR
 **This step is only required if you have NOT already done this**
 ```
 ansible-playbook deploy-docker-images.yml -i inventory.yml
 ```
-### Create & Deploy Cluster
+#### Create & Deploy Cluster
 ```
 ansible-playbook deploy-k8s-cluster.yml -i inventory.yml --extra-vars cluster_state=present
 ```
 
-### Try some kubectl commands
+#### Try some kubectl commands
 ```
 kubectl get all
 kubectl get all --all-namespaces
@@ -214,18 +214,18 @@ kubectl get componentstatuses
 kubectl get nodes
 ```
 
-### If you want to shell into a container in a Pod
+#### If you want to shell into a container in a Pod
 ```
 kubectl get pods --namespace=mushroom-app-cluster-namespace
 kubectl get pod api-5d4878c545-47754 --namespace=mushroom-app-cluster-namespace
 kubectl exec --stdin --tty api-5d4878c545-47754 --namespace=mushroom-app-cluster-namespace  -- /bin/bash
 ```
 
-### View the App
+#### View the App
 * Copy the `nginx_ingress_ip` from the terminal from the create cluster command
 * Go to `http://<YOUR INGRESS IP>.sslip.io`
 
-### Delete Cluster
+#### Delete Cluster
 ```
 ansible-playbook deploy-k8s-cluster.yml -i inventory.yml --extra-vars cluster_state=absent
 ```
